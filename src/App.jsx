@@ -1,132 +1,181 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Howl } from 'howler';
-import correctSoundFile from './assets/sounds/correct.wav';
-import incorrectSoundFile from './assets/sounds/incorrect.wav';
+import { useEffect, useState } from "react";
+import jungleBackground from "./assets/images/jungle-bg.jpeg";
+import monkeyImage from "./assets/images/monkey.png";
+import pandaImage from "./assets/images/panda.webp";
+import hareImage from "./assets/images/hare.png";
+import bananaImage from "./assets/images/banana.png";
+import bambooImage from "./assets/images/bamboo.png";
+import carrotImage from "./assets/images/carrot.png";
+import { motion } from "framer-motion";
+import correctSound from "./assets/sounds/correct.wav";
+import { levels } from "./levels";
 
-// Game Levels
-const levels = [
-  {
-    title: "Level 1",
-    description: `Welcome to Flexy Froggy, a game where you help Froggy and friends by writing Tailwind CSS classes!
-      Guide this frog to the lilypad on the right by using the justify-content property, which aligns items horizontally and accepts the following values:
-      - justify-start: Items align to the left side of the container.
-      - justify-end: Items align to the right side of the container.
-      - justify-center: Items align at the center of the container.
-      - justify-between: Items display with equal spacing between them.
-      - justify-around: Items display with equal spacing around them.
-      
-      For example, 'justify-end' will move the frog to the right.`,
-    correctClass: "justify-center",
-    hint: "https://tailwindcss.com/docs/justify-content"
-  },
-  {
-    title: "Level 2",
-    description: `Align items to the end using Tailwind's 'items-end' utility.`,
-    correctClass: "items-end",
-    hint: "https://tailwindcss.com/docs/align-items"
-  },
-  {
-    title: "Level 3",
-    description: `Space items evenly using 'justify-between'.`,
-    correctClass: "justify-between",
-    hint: "https://tailwindcss.com/docs/justify-content"
-  }
-];
+const App = (props) => {
+  const correctAudio = new Audio(correctSound);
 
-// Sound Effects
-const correctSound = new Howl({ src: [correctSoundFile] });
-const incorrectSound = new Howl({ src: [incorrectSoundFile] });
+  const [currentLevel, setCurrentLevel] = useState(20);
+  const [level, setLevel] = useState({});
+  const [position, setPosition] = useState();
+  const [correctAnswer, setCorrectAnswer] = useState();
 
-const Game = () => {
-  const [currentLevel, setCurrentLevel] = useState(0);
-  const [inputClass, setInputClass] = useState('');
-  const [feedback, setFeedback] = useState('');
-  const [showHint, setShowHint] = useState(false);
-
-  const handleClassChange = (e) => setInputClass(e.target.value);
-
-  const handleApply = () => {
-    if (inputClass.trim() === levels[currentLevel].correctClass) {
-      setFeedback('🎉 Correct!');
-      correctSound.play();
-      setTimeout(() => {
-        setCurrentLevel(prev => prev + 1);
-        setInputClass('');
-        setFeedback('');
-        setShowHint(false);
-      }, 1500);
+  const changeLevel = (direction) => {
+    if (direction === "next") {
+      if (currentLevel < levels.length - 1) {
+        setCurrentLevel((prev) => prev + 1);
+      } else {
+        alert("Congrats! You've completed all levels! 🎉");
+      }
     } else {
-      setFeedback('❌ Incorrect! Try again.');
-      incorrectSound.play();
+      if (currentLevel > 0) {
+        setCurrentLevel((prev) => prev - 1);
+      }
     }
   };
 
-  const playgroundClass = `flex gap-4 p-4 bg-cyan-100 rounded-md transition-all duration-500 ${inputClass}`;
+  useEffect(() => {
+    const currLevel = levels[currentLevel];
+    console.log(currLevel, "curr");
+
+    setLevel(currLevel);
+    setPosition(currLevel?.initialPosition);
+    setCorrectAnswer(currLevel?.targetClasses);
+  }, [currentLevel]);
+
+  useEffect(() => {
+    if (!position || !correctAnswer) return;
+  
+    const normalize = str =>
+      str
+        .trim()
+        .split(/\s+/)     // split by spaces
+        .sort()           // sort alphabetically
+        .join(" ");       // rejoin
+  
+    if (normalize(position) === normalize(correctAnswer)) {
+      correctAudio.play();
+    }
+  }, [position, correctAnswer]);
+  
 
   return (
-    <div className="h-full flex flex-row bg-blue-50">
-      {/* Left Side: Description */}
-      <div className="w-1/2 p-6 overflow-y-auto bg-[#43A047] border-r border-gray-300 flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-henny-penny text-white mb-4">Flexy Froggy</h1>
-        <h2 className="text-2xl font-semibold text-white mb-2 m-4">
-          {levels[currentLevel].title}
-        </h2>
-        <p className="text-base text-white whitespace-pre-line m-8">
-          {levels[currentLevel].description}
+    <div className="h-screen flex bg-cover bg-center p-0">
+      {/* Left Column - Explanation and UI */}
+      <div className="w-[50%] bg-[#1F5768] flex flex-col items-start justify-start gap-10 p-12">
+        <h1 className="font-henny-penny font-extrabold self-center">
+          🐵 Hungry Monkey 🍌
+        </h1>
+        <p className="text-white text-lg font-funky text-justify font-semibold">
+          <div dangerouslySetInnerHTML={{ __html: level?.header }}></div>
         </p>
-        <button
-          onClick={() => setShowHint(!showHint)}
-          className="mt-4 bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition duration-300"
-        >
-          {showHint ? 'Hide Hint' : 'Show Hint'}
-        </button>
-        {showHint && (
-          <p className="mt-2 text-sm text-white">
-            Need help? Check out the Tailwind docs: 
-            <a
-              href={levels[currentLevel].hint}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-blue-600"
-            >
-              {levels[currentLevel].hint}
-            </a>
-          </p>
-        )}
+        <div className="bg-white p-4 rounded-lg shadow-lg w-full">
+          <div dangerouslySetInnerHTML={{ __html: level?.description }}></div>
+        </div>
       </div>
 
-      {/* Right Side: Playground */}
-      <div className="w-1/2 p-6 bg-[#1F5768]">
-        <motion.div
-          id="playground"
-          className={playgroundClass}
-          animate={{ scale: 1.05 }}
-          transition={{ duration: 0.5 }}
+      {/* Right Column - Playground */}
+      <div
+        className="w-[55%] flex flex-col items-start justify-start gap-10 p-12 bg-black/50"
+        style={{
+          backgroundImage: `url(${jungleBackground})`,
+          backgroundSize: "cover",
+          backgroundBlendMode: "darken",
+        }}
+      >
+        <div
+          id="board"
+          class="sticky h-[75%] rounded-lg border border-green-900 shadow-lg w-full"
+          style={{
+            backgroundImage: `url(${jungleBackground})`,
+            backgroundSize: "cover",
+            filter: "brightness(100%)",
+          }}
         >
-          <motion.div 
-            className="frog bg-green-500 w-16 h-16 rounded-full transition-transform duration-500"
-            whileHover={{ scale: 1.2 }}
-          ></motion.div>
-          <div className="lilypad bg-green-800 w-16 h-16 rounded-full"></div>
-        </motion.div>
-        <input
-          value={inputClass}
-          onChange={handleClassChange}
-          type="text"
-          placeholder="Enter Tailwind classes..."
-          className="mt-4 w-full p-2 border border-gray-300 rounded-md"
-        />
-        <button
-          onClick={handleApply}
-          className="mt-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-300"
-        >
-          Apply
-        </button>
-        {feedback && <p className="mt-4 text-lg font-semibold text-gray-800">{feedback}</p>}
+          <div
+            id="jungle"
+            class={`absolute w-full h-full flex ${
+              level.targetAnimal != "jungle" ? "" : position
+            } p-4`}
+          >
+            {/* Animal(s) */}
+            {level?.animals?.map((animal, index) => {
+              return (
+                <motion.img
+                  id={animal}
+                  key={index}
+                  src={
+                    animal === "monkey"
+                      ? monkeyImage
+                      : animal === "hare"
+                      ? hareImage
+                      : pandaImage
+                  }
+                  className={`w-30 h-30 object-contain relative ${level.animalClasses} ${
+                    level.targetAnimal === animal ? position : ""
+                  }`}
+                  alt={animal}
+                />
+              );
+            })}
+          </div>
+          <div
+          id="foods"
+            class={`absolute w-full h-full flex ${
+              level.targetFood != "foods" ? "" : level?.targetClasses
+            } p-4 gap-0`}
+          >
+            {/* Food(s) */}
+            {level?.foods?.map((food, index) => {
+              return (
+                <img
+                  id={food}
+                  key={index}
+                  src={
+                    food === "banana"
+                      ? bananaImage
+                      : food === "bamboo"
+                      ? bambooImage
+                      : carrotImage
+                  }
+                  className={`relative w-16 mx-6 h-16 object-contain ${
+                    level.targetFood === food ? level?.targetClasses : ""
+                  }`}
+                  alt={food}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className="p-4 bg-gray-800 text-white rounded-md text-sm font-mono w-full">
+          &lt;div&gt; id="{level?.targetAnimal}" class="flex
+          <input
+            type="text"
+            className="w-full p-2 mt-2 rounded bg-gray-700 text-yellow-400 outline-none"
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+          />
+          "&lt;/div&gt;
+        </div>
+        {/* Level Navigation Buttons */}
+        <div className="flex items-center justify-center gap-0 self-end">
+          <button
+            onClick={() => changeLevel("prev")}
+            className="bg-green-500 text-white px-4 py-2 rounded-l-md hover:bg-red-700 transition"
+          >
+            <i className="fa-solid fa-play fa-flip-horizontal"></i>
+          </button>
+          <span className="bg-green-700 text-white px-6 py-2 font-bold">
+            Level {currentLevel + 1} of {levels.length}
+          </span>
+          <button
+            onClick={() => changeLevel("next")}
+            className="bg-green-500 text-white px-4 py-2 rounded-r-md hover:bg-green-700 transition"
+          >
+            <i className="fa-solid fa-play"></i>
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Game;
+export default App;
