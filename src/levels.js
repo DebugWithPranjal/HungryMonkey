@@ -1,4 +1,5 @@
 export const levels = [
+  //justify-content
   {
     id: 1,
     header: `Welcome to the jungle! 
@@ -118,6 +119,7 @@ export const levels = [
     targetAnimal: "jungle",
     targetFood: "foods",
   },
+  //align-items
   {
     id: 5,
     header: `Oh no! The bananas are too high! 🍌🐵
@@ -200,6 +202,7 @@ export const levels = [
     targetAnimal: "jungle",
     targetFood: "foods",
   },
+  //flex-direction
   {
     id: 8,
     header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜
@@ -331,6 +334,7 @@ export const levels = [
     targetAnimal: "jungle",
     targetFood: "foods",
   },
+  //order
   {
     id: 14,
     header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜 
@@ -431,6 +435,7 @@ export const levels = [
     targetAnimal: "hare",
     targetFood: "foods",
   },
+  //align-self
   {
     id: 16,
     header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜
@@ -486,6 +491,7 @@ export const levels = [
     targetAnimal: "monkey",
     targetFood: "banana",
   },
+  //flex-wrap
   {
     id: 18,
     header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜
@@ -513,15 +519,7 @@ export const levels = [
     hint: "Use `flex-col` to stack animals and food in a vertical column.",
     targetClasses: "flex-wrap",
     initialPosition: "",
-    animals: [
-      "hare",
-      "hare",
-      "hare",
-      "hare",
-      "hare",
-      "monkey",
-      "monkey",
-    ],
+    animals: ["hare", "hare", "hare", "hare", "hare", "monkey", "monkey"],
     foods: [
       "carrot",
       "carrot",
@@ -557,19 +555,11 @@ export const levels = [
       <code class="text-green-500">flex-wrap: wrap-reverse;</code> in CSS allows monkeys to move to the next line in reverse order if the vine is too short. The Tailwind equivalent is <code class="text-green-500">flex-wrap-reverse</code>.
     </p>
     </div>
-`,  
+`,
     hint: "Use `flex-col` to stack animals and food in a vertical column.",
     targetClasses: "flex-wrap-reverse",
     initialPosition: "",
-    animals: [
-      "hare",
-      "hare",
-      "hare",
-      "hare",
-      "hare",
-      "monkey",
-      "monkey",
-    ],
+    animals: ["hare", "hare", "hare", "hare", "hare", "monkey", "monkey"],
     foods: [
       "carrot",
       "carrot",
@@ -582,7 +572,8 @@ export const levels = [
     targetAnimal: "jungle",
     targetFood: "foods",
   },
-  {id: 20,
+  {
+    id: 20,
     header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜`,
     description: `<p class="text-gray-700 text-md">
     Help this army of animals form three orderly columns using a combination of \`flex-direction\` and \`flex-wrap\`.</p>`,
@@ -638,5 +629,278 @@ export const levels = [
     targetAnimal: "jungle",
     targetFood: "foods",
     animalClasses: "!w-16 !h-16",
-  }
+  },
+  //align-content
+  {
+    id: 21,
+    header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜
+    <p>The jungle is getting crowded! Use the <span class="text-green-400">align-content</span> property to spread out the animals and their food vertically.</p>`,
+    description: `<p class="text-gray-700 text-md">
+      In CSS, the \`align-content\` property controls the vertical spacing between rows of flex items when there is extra space in the container. It accepts the following values: <strong>flex-start</strong>, <strong>flex-end</strong>, <strong>center</strong>, <strong>space-between</strong>, <strong>space-around</strong>, and <strong>stretch</strong>. In Tailwind CSS, these become utility classes:
+    </p>
+    <ul class="list-disc list-inside text-gray-700">
+      <li>
+        <strong>content-start</strong>: Rows align to the top.
+      </li>
+      <li>
+        <strong>content-end</strong>: Rows align to the bottom.
+      </li>
+      <li>
+        <strong>content-center</strong>: Rows align in the center vertically.
+      </li>
+      <li>
+        <strong>content-between</strong>: Rows have equal spacing between them.
+      </li>
+      <li>
+        <strong>content-around</strong>: Rows have equal spacing around them.
+      </li>
+      <li>
+        <strong>content-stretch</strong>: Rows stretch to fill the container (default).
+      </li>
+    </ul>
+    <p class="mt-2 text-gray-700">
+      For example, 
+      <code class="text-green-500">align-content: space-around;</code> in CSS spreads out the rows of animals and food with equal spacing around them. The Tailwind equivalent is <code class="text-green-500">content-around</code>.
+    </p>
+    </div>
+`,
+    hint: "Use `content-around` to spread out the rows with equal spacing around them.",
+    targetClasses: "flex-wrap content-around",
+    initialPosition: "flex-wrap content-start",
+    animals: [
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+    ],
+    foods: [
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+    ],
+    targetAnimal: "jungle",
+    targetFood: "foods",
+    animalClasses: "!w-16 !h-16",
+  },
+  {
+    id: 22,
+    header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜
+    <p>The jungle is getting crowded! Use the <span class="text-green-400">align-content</span> property to spread out the animals and their food vertically.</p>`,
+    description: `<p class="text-gray-700 text-md">
+      In CSS, the \`align-content\` property controls the vertical spacing between rows of flex items when there is extra space in the container. It accepts the following values: <strong>flex-start</strong>, <strong>flex-end</strong>, <strong>center</strong>, <strong>space-between</strong>, <strong>space-around</strong>, and <strong>stretch</strong>. In Tailwind CSS, these become utility classes:
+    </p>
+    <ul class="list-disc list-inside text-gray-700">
+      <li>
+        <strong>content-start</strong>: Rows align to the top.
+      </li>
+      <li>
+        <strong>content-end</strong>: Rows align to the bottom.
+      </li>
+      <li>
+        <strong>content-center</strong>: Rows align in the center vertically.
+      </li>
+      <li>
+        <strong>content-between</strong>: Rows have equal spacing between them.
+      </li>
+      <li>
+        <strong>content-around</strong>: Rows have equal spacing around them.
+      </li>
+      <li>
+        <strong>content-stretch</strong>: Rows stretch to fill the container (default).
+      </li>
+    </ul>
+    <p class="mt-2 text-gray-700">
+      For example, 
+      <code class="text-green-500">align-content: space-between;</code> in CSS spreads out the rows of animals and food with equal spacing between them. The Tailwind equivalent is <code class="text-green-500">content-between</code>.
+    </p>
+    </div>
+`,
+    hint: "Use `content-between` to spread out the rows with equal spacing between them.",
+    targetClasses: "flex-wrap content-end",
+    initialPosition: "flex-wrap content-start",
+    animals: [
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+    ],
+    foods: [
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+    ],
+    targetAnimal: "jungle",
+    targetFood: "foods",
+    animalClasses: "!w-16 !h-16",
+  },
+  {
+    id: 23,
+    header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜`,
+    description: `<p class="text-gray-700 text-md">
+    Help this army of animals form three orderly columns using a combination of \`flex-direction\`, \`flex-wrap\`, and \`align-content\`.</p>`,
+    hint: "Use `flex-col` to stack animals and food in a vertical column.",
+    targetClasses: "flex-col flex-wrap content-center",
+    initialPosition: "",
+    animals: [
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "hare",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "monkey",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+      "panda",
+    ],
+    foods: [
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "carrot",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "banana",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+      "bamboo",
+    ],
+    targetAnimal: "jungle",
+    targetFood: "foods",
+    animalClasses: "!w-16 !h-16",
+  },
+  //extra
+  {
+    id: 24,
+    header: `Jungle Feast in Chaos! 🍽️🐘🐒🦜`,
+    description: `<p class="text-gray-700 text-md">
+    Combine all the properties you've learned to perfectly position the animals and their food in the jungle!</p>`,
+    hint: "Use `flex-col` to stack animals and food in a vertical column.",
+    targetClasses:
+      "flex-col flex-wrap content-center justify-between items-center",
+    initialPosition: "",
+    animals: [
+      "hare",
+      "hare",
+      "hare",
+
+      "monkey",
+      "monkey",
+      "monkey",
+
+      "panda",
+      "panda",
+      "panda",
+    ],
+    foods: [
+      "carrot",
+      "carrot",
+      "carrot",
+
+      "banana",
+      "banana",
+
+      "banana",
+      "bamboo",
+
+      "bamboo",
+      "bamboo",
+    ],
+    targetAnimal: "jungle",
+    targetFood: "foods",
+    animalClasses: "!w-16 !h-16",
+  },
+  
 ];

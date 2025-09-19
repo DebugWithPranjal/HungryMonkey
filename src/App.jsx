@@ -109,7 +109,7 @@ const App = (props) => {
                       ? hareImage
                       : pandaImage
                   }
-                  className={`w-30 h-30 object-contain relative ${level.animalClasses} ${
+                  className={`w-30 h-30 mx-6 object-contain relative ${level.animalClasses} ${
                     level.targetAnimal === animal ? position : ""
                   }`}
                   alt={animal}
